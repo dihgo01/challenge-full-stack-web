@@ -38,18 +38,11 @@ export class User extends Model<User>{
     @Column({ allowNull: false })
     password: string;
 
-    @Unique
-    @Column({
-        type: DataType.STRING(30),
-        allowNull: false
-    })
-    ra: string;
-
     @Column({
         allowNull: false,
-        type: DataType.STRING(11)
+        type: DataType.ENUM('Paciente', 'Representante', 'Médico', 'Administrador')
     })
-    cpf: string;
+    type: string;
 
     @CreatedAt
     createdAt: Date;
@@ -65,11 +58,6 @@ export class User extends Model<User>{
         if (instance.changed('password')) {
             instance.password = hashSync(instance.password, 10);
         }
-    }
-
-    @BeforeCreate
-    static async valideCPF(instance: User) {
-        instance.cpf = instance.cpf.replace(/[^\d]/g, '')
     }
 
 }

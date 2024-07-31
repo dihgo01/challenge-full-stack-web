@@ -16,21 +16,17 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING(255),
+        unique: true,
         allowNull: false,
       },
       password: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      ra: {
-        type: Sequelize.STRING(50),
-        allowNull: false,
-        unique: true,
-      },
-       cpf: {
-        type: Sequelize.STRING(11),
-        allowNull: false,
-      },
+      type: {
+        type: Sequelize.ENUM('Paciente', 'Representante', 'Médico', 'Administrador'),
+        allowNull: true,
+      }, 	
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

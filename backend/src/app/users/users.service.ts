@@ -14,7 +14,12 @@ export class UsersService {
   ) { }
 
   async create(createUserDto: CreateUserDto) {
-    const user = await this.usersRepository.create(createUserDto);
+    const user = await this.usersRepository.create({
+      name: createUserDto.name,
+      email: createUserDto.email,
+      password: createUserDto.password,
+      type: "Administrador",
+    });
     return user;
   }
 

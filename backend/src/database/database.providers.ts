@@ -3,8 +3,10 @@ import { User } from '../app/users/entities/user.entity';
 import { sequelizeConnection } from '../constants/constants';
 import { SequelizeModule } from '@nestjs/sequelize';
 import config from './config';
+import { Doctor } from 'src/app/doctor/entities/doctor.entity';
+import { Representative } from 'src/app/representative/entities/representative.entity';
 
-const models = [User];
+const models = [User, Doctor, Representative];
 
 export const databaseProviders = [
   {
@@ -16,7 +18,7 @@ export const databaseProviders = [
       if (!connection) {
         throw new Error('DB_VENDOR not defined');
       }
-
+  
       if (connection === 'dev')
         configSequelize = config.dev;
 

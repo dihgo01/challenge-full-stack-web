@@ -131,7 +131,10 @@ export default {
     <div v-if="deleteSuccess">
       <notification :messege="deletemSuccessMessage" :openNotification="deleteSuccess" :color="deleteColor" />
     </div>
-    <v-data-table-server v-model:items-per-page="itemsPerPage" :headers="headers" :items-length="totalItems"
+    <v-data-table-server 
+      v-model:items-per-page="itemsPerPage" 
+      :headers="headers" 
+      :items-length="totalItems"
       :items="users" :loading="loading" loading-text="Carregando..." item-value="name"
       no-data-text="Não há dados disponíveis" @update:options="fetchUsers">
       <template v-slot:top>

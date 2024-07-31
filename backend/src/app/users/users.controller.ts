@@ -24,12 +24,14 @@ import { AuthGuard } from '@nestjs/passport';
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
+  //@UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     const user = await this.usersService.create(createUserDto)
     return new UserPresenter(user);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   async findAll(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
@@ -48,6 +50,7 @@ export class UsersController {
     return new UserCollectionPresenter({ data: users.data, paginationProps: pagination });
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const user = await this.usersService.findOne(id);
@@ -55,6 +58,7 @@ export class UsersController {
     return new UserPresenter(user);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     const user = await this.usersService.update(id, updateUserDto);

@@ -11,11 +11,11 @@ export class AuthService {
         private readonly jwtService: JwtService,
         ) { }
 
-    async login( ra: string, password: string) {
+    async login( email: string, password: string) {
         let user: User;
         const searchParam = {
             where: {
-                ra
+                email
             }
         };
         try {
@@ -31,11 +31,10 @@ export class AuthService {
         }
 
         const payload = { 
-            ra: user.ra, 
             name: user.name, 
             email: user.email,
             sub: user.id,
-            authorization: ['user.delete']
+            authorization: user.type
         };
         const token = this.jwtService.sign(payload);
 
